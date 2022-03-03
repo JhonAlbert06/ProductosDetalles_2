@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Productos_Detalle.Models
 {
-    public class ProductoDetalle
+    public class ProductosDetalle
     {
         [Key]
         public int Id { get; set; }
@@ -11,7 +11,7 @@ namespace Productos_Detalle.Models
         public int Cantidad { get; set; }
         public double Precio { get; set; }
 
-        public ProductoDetalle()
+        public ProductosDetalle()
         {
             this.Id = 0;
             this.ProductoId = 0;
@@ -20,7 +20,7 @@ namespace Productos_Detalle.Models
             this.Precio = 0;
         }
 
-        public ProductoDetalle(string presentacion, int cantidad, double precio)
+        public ProductosDetalle(string presentacion, int cantidad, double precio)
         {
             this.Presentacion = presentacion;
             this.Cantidad = cantidad;

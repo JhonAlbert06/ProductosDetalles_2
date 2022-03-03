@@ -15,6 +15,6 @@ namespace ProductosDetalles_2.Models
 
 
         [ForeignKey("ProductoId")]
-        public List<ProductoDetalle> Detalle { get; set; } = new List<ProductoDetalle> ();
+        public List<ProductosDetalle> Detalle { get; set; } = new List<ProductosDetalle> ();
     }
 }
