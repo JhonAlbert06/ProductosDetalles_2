@@ -1,0 +1,79 @@
+@page "/R_Productos"
+@* @page "/R_Productos/{ProductoId:int}" *@
+
+<EditForm Model="producto" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="container-md">
+
+        <div class="card ">
+
+            <div class="card-header">
+                <h3>Registro de Productos</h3>
+            </div>
+
+            <div class="card-body">
+
+                @* Buscar *@
+                <div class="form-group align-items-right">
+
+                    <div class="form-row">
+                        
+                        <label>Producto Id</label>
+
+                        <div class="input-group">
+
+                            <InputNumber @bind-Value="producto.ProductoId" class="form-control col-4 col" />
+
+                            <div class="input-group-append col">
+                                <button type="button" class="btn btn-success input-group-text "
+                                    @onclick="Buscar">Buscar</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr>
+
+
+            </div>
+
+            <div class="card-footer">
+
+            @* Botones *@
+            <div class="form-group text-center" display: inline-block>
+                <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">Nuevo</button>
+                <button type="submit" class="btn btn-lg btn-success">Guardar</button>
+                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">Eliminar</button>
+            </div>
+
+        </div>
+
+        </div>
+    </div>
+
+</EditForm>
+
+
+@code {
+    public Productos producto { get; set; } = new Productos();
+
+    public void Buscar()
+    {
+
+    }
+    public void Guardar()
+    {
+
+    }
+    public void Nuevo()
+    {
+
+    }
+    public void Eliminar()
+    {
+
+    }
+}
