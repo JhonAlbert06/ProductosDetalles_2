@@ -22,7 +22,8 @@
                         <option value="0"></option>
                         <option value="1">Id</option>
                         <option value="2">Descripción</option>
-                        <option value="3">Fecha de Expiracion</option>
+                        <option value="3">Fecha y ID</option>
+                        <option value="4">Fecha y Descripción</option>
                     </select>
                     
                     <div class="flex-fill mx-2">
@@ -30,7 +31,7 @@
                         <input type="text" class="form-control" @bind="Criterio" placeholder="Escriba Aqui"/>
                     </div>
 
-                    @if(Filtro == "3")
+                    @if(Filtro == "3" || Filtro == "4")
                     {
                         <div class="flex-fill mx-2">
                             <label>Desde</label>
@@ -115,7 +116,11 @@
                 break;
 
                 case "3":
-                    lista = productosBLL.GetList(t => (t.Fecha.Date >= Desde.Date && t.Fecha.Date <= Hasta.Date || (t.Descripcion.ToLower().Contains(Criterio.ToLower())))); // Filtro de Fecha
+                    lista = productosBLL.GetList(t => (t.Fecha >= Desde && t.Fecha <= Hasta) && t.ProductoId == int.Parse(Criterio));
+                break;
+
+                case "4":
+                    lista = productosBLL.GetList(t => (t.Fecha >= Desde && t.Fecha <= Hasta) && t.Descripcion.ToLower().Contains(Criterio.ToLower()));
                 break;
             }
         }
