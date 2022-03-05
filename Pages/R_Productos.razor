@@ -12,13 +12,6 @@
                 <h3 class="card-title">Registro de Productos</h3>
             </div>
 
-            @* 
-            <div>
-                <label>Fecha: </label>
-                <Label>@(producto.Fecha = DateTime.Now)</Label>
-            </div> 
-            *@
-
             <div class="card-body">
 
                 @* Buscar *@
@@ -98,7 +91,8 @@
                     </div>
 
                     <form>
-                        <div class="input-group d-flex align-items-end">
+
+                        <div class=" row input-group d-flex align-items-end">
 
                             @* Presentacion *@
                             <div class="form-group col">
@@ -133,7 +127,7 @@
                                 }
                             </div>
 
-                            <button type="button" class="btn btn-success" @onclick="AgregarDetalle">
+                            <button type="button" class="btn btn-success col" @onclick="AgregarDetalle">
                                 <span class="oi oi-plus">Agregar Detalle</span>
                             </button>
 
