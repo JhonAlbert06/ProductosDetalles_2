@@ -17,21 +17,36 @@
             <form>
     
                 <div class="input-group d-flex align-items-end">
+                    
                     <select class="form-control col-2" @bind="Filtro">
                         <option value="0"></option>
                         <option value="1">Id</option>
                         <option value="2">Descripción</option>
-                        <option value="2">Fecha</option>
+                        <option value="3">Fecha de Expiracion</option>
                     </select>
 
+                    @if(Filtro == "3")
+                    {
+                        <div class="flex-fill mx-2">
+                            <label>Desde</label>
+                            <input type="date" class="form-control" @bind="Desde"/>
+                        </div>
+
+                        <div class="flex-fill mx-2">
+                            <label>Hasta</label>
+                            <input type="date" class="form-control" @bind="Hasta"/>
+                        </div>    
+                    }
+                    
                     <div class="flex-fill mx-2">
                         <label>Criterio</label>
-                        <input type="text" class="form-control" @bind="Criterio"/>
+                        <input type="text" class="form-control" @bind="Criterio" placeholder="Escriba Aqui"/>
                     </div>
 
                     <button type="button" class="btn btn-warning" @onclick="Buscar">
                         <i class="oi oi-magnifying-glass mr-2"/> Buscar
                     </button>
+
                 </div>
                 
             </form>
@@ -60,8 +75,8 @@
                         <td>@item.Existencia</td>
                         <td>RD$ @item.Costo</td>
                         <td>RD$ @item.ValorInventario</td>
-                        <td>@item.Fecha</td>
-                        <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="rproductos/@item.ProductoId">Ver</a></td>
+                        <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_Productos/@item.ProductoId">Ver</a></td>
                     </tr>
                 }
             </tbody>
@@ -76,6 +91,8 @@
 @code{
     public string Filtro { get; set; }
     public string Criterio { get; set; }
+    public DateTime Desde { get; set; }
+    public DateTime Hasta { get; set; }
     public List<Productos> lista { get; set; } = new List<Productos>();
 
     [Inject]
@@ -97,7 +114,7 @@
                 break;
 
                 case "3":
-                    // Filtro de Fecha
+                    lista = productosBLL.GetList(t => (t.Fecha.Date >= Desde.Date && t.Fecha.Date <= Hasta.Date || (t.Descripcion.ToLower().Contains(Criterio.ToLower())))); // Filtro de Fecha
                 break;
             }
         }
