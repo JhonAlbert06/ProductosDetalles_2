@@ -6,10 +6,10 @@
 
     <div class="container-md">
 
-        <div class="card">
+        <div class="card shadow-lg">
 
             <div class="card-header">
-                <h3>Registro de Productos</h3>
+                <h3 class="card-title">Registro de Productos</h3>
             </div>
 
             @* 
@@ -40,6 +40,7 @@
                         </div>
 
                     </div>
+                    
                 </div>
 
                 <hr>
@@ -76,6 +77,17 @@
 
                 </div>
 
+                <br>
+
+                <div class="row">
+                    @* Fecha *@
+                    <div class="form-group col">
+                        <label>Fecha de Expiracion</label>
+                        <InputDate class="form-control" @bind-Value="producto.Fecha" />
+                        <ValidationMessage For="@(() => producto.Fecha)" />
+                    </div>
+                </div>
+
                 <hr>
 
                 @* PRODUCTO DETALLE *@
@@ -100,6 +112,12 @@
                                 <label>Cantidad</label>
                                 <InputNumber class="form-control" @bind-Value="Cantidad" />
                                 <ValidationMessage For="@(() => Cantidad)" />
+                                @if(Cantidad < 0)
+                                {
+                                    <label>
+                                        La Cantidad No puede ser mejor a cero
+                                    </label>
+                                }
                             </div>
 
                             @* Precio *@
@@ -107,6 +125,12 @@
                                 <label>Precio</label>
                                 <InputNumber class="form-control" @bind-Value="Precio" />
                                 <ValidationMessage For="@(() => Precio)" />
+                                @if(Precio < 0)
+                                {
+                                    <label>
+                                        El Precio No puede ser mejor a cero
+                                    </label>
+                                }
                             </div>
 
                             <button type="button" class="btn btn-success" @onclick="AgregarDetalle">
@@ -114,7 +138,9 @@
                             </button>
 
                         </div>
+                        
                         <br>
+
                         <table class="table table-secondary">
                             <thead class="thead-dark">
                                 <tr class="table-info">
