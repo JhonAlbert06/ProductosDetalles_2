@@ -24,6 +24,11 @@
                         <option value="2">Descripción</option>
                         <option value="3">Fecha de Expiracion</option>
                     </select>
+                    
+                    <div class="flex-fill mx-2">
+                        <label>Criterio</label>
+                        <input type="text" class="form-control" @bind="Criterio" placeholder="Escriba Aqui"/>
+                    </div>
 
                     @if(Filtro == "3")
                     {
@@ -36,12 +41,8 @@
                             <label>Hasta</label>
                             <input type="date" class="form-control" @bind="Hasta"/>
                         </div>    
+
                     }
-                    
-                    <div class="flex-fill mx-2">
-                        <label>Criterio</label>
-                        <input type="text" class="form-control" @bind="Criterio" placeholder="Escriba Aqui"/>
-                    </div>
 
                     <button type="button" class="btn btn-warning" @onclick="Buscar">
                         <i class="oi oi-magnifying-glass mr-2"/> Buscar
