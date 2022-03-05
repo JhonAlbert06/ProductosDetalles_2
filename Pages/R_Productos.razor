@@ -12,6 +12,13 @@
                 <h3>Registro de Productos</h3>
             </div>
 
+            @* 
+            <div>
+                <label>Fecha: </label>
+                <Label>@(producto.Fecha = DateTime.Now)</Label>
+            </div> 
+            *@
+
             <div class="card-body">
 
                 @* Buscar *@
@@ -125,6 +132,7 @@
                                         <td>@item.Presentacion</td>
                                         <td>@item.Cantidad</td>
                                         <td>RD$ @item.Precio</td>
+                                        <td><span class="btn btn-sm btn-outline-primary oi oi-ban" href="#"  @onclick=" (() => RemoverFila(item)) "> Remover</span></td>
                                     </tr>
                                 }
                             </tbody>
@@ -178,5 +186,10 @@
     public void AgregarDetalle()
     {
 
+    }
+
+    private void RemoverFila(ProductosDetalle item)
+    {
+        this.producto.Detalle.Remove(item);
     }
 }
