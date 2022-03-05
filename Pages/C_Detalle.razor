@@ -25,7 +25,7 @@
 
                     <div class="flex-fill mx-2">
                         <label>Criterio</label>
-                        <input type="text" class="form-control" @bind="Criterio"/>
+                        <input type="text" class="form-control" @bind="Criterio" placeholder="Escriba Aqui"/>
                     </div>
 
                     <button type="button" class="btn btn-warning" @onclick="Buscar">
@@ -50,22 +50,23 @@
             </thead>
     
             <tbody>
-                @foreach (var item in lista)
+                @* @foreach (var item in lista.Detalle)
                 {
-                    @* <tr>
+                    <tr>
                         <td>@item.Id</td>
                         <td>@item.ProductoId</td>
                         <td>@item.Presentacion</td>
                         <td>@item.Cantidad</td>
                         <td>RD$ @item.Precio</td>
                         <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="rproductos/@item.ProductoId">Ver</a></td>
-                    </tr> *@
-                }
+                    </tr>
+                } *@
             </tbody>
     
         </table>
     
     </div>
+
 </EditForm>
 
 
@@ -80,7 +81,6 @@
 
     private void Buscar()
     {
-
         if (Criterio != null)
         {
             switch(Filtro)
