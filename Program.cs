@@ -1,6 +1,12 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-//using ProductosDetalles_2.Data;
+
+using Blazored.Toast;
+using ProductosDetalles_2.BLL;
+using ProductosDetalles_2.DAL;
+
+using Microsoft.EntityFrameworkCore;
+using Blazored.Toast;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +14,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddBlazoredToast();
+builder.Services.AddTransient<ProductoBLL>();
+
+// Aqui inyectamos el DbContext
+builder.Services.AddDbContext<Contexto>(options => 
+    options.UseSqlite(builder.Configuration.GetConnectionString("ConStr"))    
+);
+
 
 var app = builder.Build();
 
