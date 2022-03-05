@@ -11,7 +11,7 @@ namespace ProductosDetalles_2.Models
         public int Existencia { get; set; }
         public double Costo { get; set; }
         public double ValorInventario { get; set; }
-
+        public DateTime Fecha { get; set; }
 
 
         [ForeignKey("ProductoId")]
