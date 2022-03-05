@@ -161,7 +161,7 @@
                     <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
                         <span class="oi oi-trash">Eliminar</span>
                     </button>
-                    
+
                 </div>
 
             </div>
@@ -171,31 +171,81 @@
 
 </EditForm>
 
+@inject IToastService toastService
 
 @code {
+
     public Productos producto { get; set; } = new Productos();
     public string Presentacion { get; set; }
     public int Cantidad { get; set; }
     public double Precio { get; set; }
+
+    [Parameter]
+    public int ProductoId { get; set; }
+
+    [Inject]
+    public ProductoBLL productosBLL { get; set; }
+
+    protected override void OnInitialized()
+    {
+        producto.ProductoId = ProductoId;
+        Buscar();
+    }
+
     public void Buscar()
     {
-
-    }
-    public void Guardar()
-    {
-
+        if (this.producto.ProductoId > 0)
+        {
+            Productos encontrado = productosBLL.Buscar(this.producto.ProductoId);
+            
+            if (encontrado != null)
+            {
+                this.producto = encontrado;
+            }
+            else
+            {
+                toastService.ShowError("No se encontró el producto");
+            }
+        }
     }
     public void Nuevo()
     {
+        producto = new Productos();
+    }
 
+    public void NuevoDetalle()
+    {
+        Presentacion = "";
+        Cantidad = 0;
+        Precio = 0;
+    }
+    public void Guardar()
+    {
+        CalculoValorInventario();
+
+        if (productosBLL.Guardar(producto))
+        {
+            toastService.ShowInfo("Se guardó exitosamente");
+        }
+        else
+            toastService.ShowError("No se pudo guardar.");
     }
     public void Eliminar()
     {
-
+        if (productosBLL.Eliminar(producto.ProductoId))
+        {
+            Nuevo();
+            toastService.ShowSuccess("Eliminación exitosa");
+        }
+        else
+        {
+            toastService.ShowError("Eliminación fallida");
+        }
     }
     public void AgregarDetalle()
     {
         this.producto.Detalle.Add(new ProductosDetalle(Presentacion, Cantidad, Precio));
+        NuevoDetalle();
     }
 
     private void RemoverFila(ProductosDetalle item)
