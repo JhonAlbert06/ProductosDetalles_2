@@ -1,21 +1,21 @@
 @page "/C_Detalles"
 
 @using ProductosDetalles_2.Models
-@using ProductosDetalles_2.BLL 
+@using ProductosDetalles_2.BLL
 
 <EditForm Model="lista">
     <DataAnnotationsValidator />
-    
+
     <div class="card">
-    
+
         <div class="card-header">
             <h3>Consulta de Detalles</h3>
         </div>
-    
+
         <div class="card-body">
-    
+
             <form>
-    
+
                 <div class="input-group d-flex align-items-end">
                     <select class="form-control col-2" @bind="Filtro">
                         <option value="0"></option>
@@ -25,53 +25,67 @@
 
                     <div class="flex-fill mx-2">
                         <label>Criterio</label>
-                        <input type="text" class="form-control" @bind="Criterio" placeholder="Escriba Aqui"/>
+                        <input type="text" class="form-control" @bind="Criterio" placeholder="Escriba Aqui" />
                     </div>
 
                     <button type="button" class="btn btn-warning" @onclick="Buscar">
-                        <i class="oi oi-magnifying-glass mr-2"/> Buscar
+                        <i class="oi oi-magnifying-glass mr-2" /> Buscar
                     </button>
                 </div>
-                
+
             </form>
-    
+
         </div>
-    
+
         <table class="table table-secondary">
-    
+
             <thead class="thead-dark">
                 <tr class="table-info">
-                    <th>Id</th>
                     <th>Producto Id</th>
+                    <th>Id</th>
+                    <th>Descripcion</th>
                     <th>Presentacion</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
+                    <th>Existencia Empaque</th>
                 </tr>
             </thead>
-    
+
             <tbody>
-                @foreach (var item in lista)
+                @foreach (var itemm in listaa)
                 {
-                    <tr>
-                        <td>@item.Detalle</td>
-                        <td>@item.ProductoId</td>
-                        <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="rproductos/@item.ProductoId">Ver</a></td>
-                    </tr>
+                    @foreach (var item in lista)
+                    {
+                        if (itemm.ProductoId == item.ProductoId)
+                        {
+                            <tr>
+                                <td>@item.ProductoId</td>
+                                <td>@item.Id</td>
+                                <td>@itemm.Descripcion</td>
+                                <td>@item.Presentacion</td>
+                                <td>@item.Cantidad</td>
+                                <td>RD$ @item.Precio</td>
+                                <td>@(Convert.ToInt32(itemm.Existencia / item.Cantidad))</td>
+                            </tr>
+                        }
+                    }
                 }
             </tbody>
-    
         </table>
-    
+
     </div>
 
 </EditForm>
 
 
 
-@code{
+@code {
+
     public string Filtro { get; set; }
     public string Criterio { get; set; }
-    public List<Productos> lista { get; set; } = new List<Productos>(); 
+
+    public List<Productos> listaa { get; set; } = new List<Productos>();
+    public List<ProductosDetalle> lista { get; set; } = new List<ProductosDetalle>();
 
     [Inject]
     public ProductoBLL productosBLL { get; set; }
@@ -80,24 +94,22 @@
     {
         if (Criterio != null)
         {
-            switch(Filtro)
+            switch (Filtro)
             {
                 case "1":
-                    lista = productosBLL.GetList(t => t.ProductoId == int.Parse(Criterio));
-                break;
+                    lista = productosBLL.GetListDetalle(t => t.ProductoId == int.Parse(Criterio));
+                    break;
 
                 case "2":
-                    lista = productosBLL.GetList(t => t.Descripcion.ToLower().Contains(Criterio.ToLower())); 
-                break;
+                    lista = productosBLL.GetListDetalle(t => t.Presentacion.ToLower().Contains(Criterio.ToLower()));
+                    break;
 
-                case "3":
-                    // Filtro de Fecha
-                break;
             }
         }
         else
         {
-            lista = productosBLL.GetList(t => true);
+            lista = productosBLL.GetListDetalle(t => true);
+            listaa = productosBLL.GetList(t => true);
         }
     }
 }
