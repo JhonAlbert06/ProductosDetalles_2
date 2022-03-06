@@ -150,5 +150,22 @@ namespace ProductosDetalles_2.BLL
             return lista;
         }
 
+        public List<ProductosDetalle> GetListDetalle(Expression<Func<ProductosDetalle, bool>> criterio)
+        {
+            List<ProductosDetalle> lista = new List<ProductosDetalle>();
+            
+            try
+            {
+                lista = _contexto.ProductosDetalle.Where(criterio).ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return lista;
+
+        }
+        
     }
 }
